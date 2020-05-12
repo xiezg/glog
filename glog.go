@@ -1076,49 +1076,73 @@ func Infof(format string, args ...interface{}) {
 // Warning logs to the WARNING and INFO logs.
 // Arguments are handled in the manner of fmt.Print; a newline is appended if missing.
 func Warning(args ...interface{}) {
-	logging.print(warningLog, args...)
+	args_new := make([]interface{}, 0)
+	args_new = append(args_new, "\033[;33m")
+	args = append(args, "\033[0m")
+	args_new = append(args_new, args...)
+	logging.print(warningLog, args_new...)
 }
 
 // WarningDepth acts as Warning but uses depth to determine which call frame to log.
 // WarningDepth(0, "msg") is the same as Warning("msg").
 func WarningDepth(depth int, args ...interface{}) {
-	logging.printDepth(warningLog, depth, args...)
+	args_new := make([]interface{}, 0)
+	args_new = append(args_new, "\033[;33m")
+	args = append(args, "\033[0m")
+	args_new = append(args_new, args...)
+	logging.printDepth(warningLog, depth, args_new...)
 }
 
 // Warningln logs to the WARNING and INFO logs.
 // Arguments are handled in the manner of fmt.Println; a newline is appended if missing.
 func Warningln(args ...interface{}) {
-	logging.println(warningLog, args...)
+	args_new := make([]interface{}, 0)
+	args_new = append(args_new, "\033[;33m")
+	args = append(args, "\033[0m")
+	args_new = append(args_new, args...)
+	logging.println(warningLog, args_new...)
 }
 
 // Warningf logs to the WARNING and INFO logs.
 // Arguments are handled in the manner of fmt.Printf; a newline is appended if missing.
 func Warningf(format string, args ...interface{}) {
-	logging.printf(warningLog, format, args...)
+	logging.printf(warningLog, "\033[;33m"+format+"\033[0m", args...)
 }
 
 // Error logs to the ERROR, WARNING, and INFO logs.
 // Arguments are handled in the manner of fmt.Print; a newline is appended if missing.
 func Error(args ...interface{}) {
-	logging.print(errorLog, args...)
+	args_new := make([]interface{}, 0)
+	args_new = append(args_new, "\033[;31m")
+	args = append(args, "\033[0m")
+	args_new = append(args_new, args...)
+	logging.print(errorLog, args_new...)
 }
 
 // ErrorDepth acts as Error but uses depth to determine which call frame to log.
 // ErrorDepth(0, "msg") is the same as Error("msg").
 func ErrorDepth(depth int, args ...interface{}) {
-	logging.printDepth(errorLog, depth, args...)
+	args_new := make([]interface{}, 0)
+	args_new = append(args_new, "\033[;31m")
+	args = append(args, "\033[0m")
+	args_new = append(args_new, args...)
+	logging.printDepth(errorLog, depth, args_new...)
 }
 
 // Errorln logs to the ERROR, WARNING, and INFO logs.
 // Arguments are handled in the manner of fmt.Println; a newline is appended if missing.
 func Errorln(args ...interface{}) {
-	logging.println(errorLog, args...)
+	args_new := make([]interface{}, 0)
+	args_new = append(args_new, "\033[;31m")
+	args = append(args, "\033[0m")
+	args_new = append(args_new, args...)
+	logging.println(errorLog, args_new...)
 }
 
 // Errorf logs to the ERROR, WARNING, and INFO logs.
 // Arguments are handled in the manner of fmt.Printf; a newline is appended if missing.
 func Errorf(format string, args ...interface{}) {
-	logging.printf(errorLog, format, args...)
+	logging.printf(errorLog, "\033[;31m"+format+"\033[0m", args...)
 }
 
 // Fatal logs to the FATAL, ERROR, WARNING, and INFO logs,
